@@ -34,6 +34,10 @@ There are two ways to use `slack-exporter` (detailed below). Both require a Slac
 
 2. Run `python exporter.py --help` to view the available export options.
 
+3. Getting a dump of messages and replies in a channel 
+```sh
+python exporter.py -c --from-channel <my-channel-name> --json -o ./messages 
+```
 ### As a Slack bot
 
 `bot.py` is a Slack bot that responds to "slash commands" in Slack channels (e.g., `/export-channel`). To connect the bot to the Slack app generated in [Authentication with Slack](#authentication-with-slack), create a file named `.env` in the root directory of this repo, and add the following line:
