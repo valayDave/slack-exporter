@@ -349,6 +349,7 @@ if __name__ == "__main__":
         action="store_true",
         help="Get reply threads for all accessible conversations",
     )
+    parser.add_argument('--from-channel',help='select output from a certain channel')
     a = parser.parse_args()
 
     ts = str(datetime.strftime(datetime.now(), "%m-%d-%Y_%H%M%S"))
@@ -402,7 +403,12 @@ if __name__ == "__main__":
     if a.c:
         ch_list = channel_list()
         users = user_list()
-        for ch_id in [x["id"] for x in ch_list]:
+        ch_id_list = None
+        if a.from_channel is not None:
+            ch_id_list = [x['id'] for x in ch_list if 'name' in x and x['name']==a.from_channel]
+        else:
+            ch_id_list = [x['id'] for x in ch_list]
+        for ch_id in ch_id_list:
             ch_hist = channel_history(ch_id)
             if a.json:
                 data_ch = ch_hist
